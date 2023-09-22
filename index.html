@@ -5,10 +5,104 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blog Title</title>
+    <style media="screen">
+      .cube-view {
+        height: 600px;
+        width: 900px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*min-height: 100vh;*/
+        margin: 0;
+        background-color: #f0f0f0;
+        overflow: clip;
+      }
+
+      .cube-container {
+        perspective: 800px;
+      }
+
+      @keyframes rotationXY {
+        from { transform: 0; }
+        to { transform: rotateX(720deg) rotateY(360deg); }
+      }
+
+      cube {
+        display: block;
+        width: 150px;
+        height: 150px;
+        position: relative;
+        transform-style: preserve-3d;
+        /* animation: rotationXY 10s linear infinite; */
+      }
+      .cube-view:hover cube {
+        animation: rotationXY 10s linear infinite;
+      }
+
+      cube:hover {
+        /* transform: rotateX(720deg) rotateY(360deg); */
+      }
+
+      cube:hover .front  { transform: none; }
+      cube:hover .front-left   { transform: translateX(-75px); }
+      cube:hover .left-back    { transform: translateX(-75px); }
+      cube:hover .front-right  { transform: translateX( 75px); }
+      cube:hover .front-top    { transform: translateY(-75px); }
+      cube:hover .front-bottom { transform: translateY( 75px); }
+
+      face, joint {
+        box-sizing: border-box;
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform-style: preserve-3d;
+        transition: transform 2s;
+      }
+      joint {
+      }
+      face {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        border: 2px solid #333;
+      }
+
+      .front  { background-color: #f44336; transform: translateZ( 75px); }
+      .back   { background-color: #3f51b5; transform: translateX(-75px); }
+      .left   { background-color: #4caf50; transform: translateX(-75px); }
+      .right  { background-color: #ff9800; transform: translateX( 75px); }
+      .top    { background-color: #9c27b0; transform: translateY(-75px); }
+      .bottom { background-color: #2196f3; transform: translateY( 75px); }
+
+      .front-left   { transform: translateX(-75px) rotateY(-90deg); }
+      .left-back    { transform: translateX(-75px) rotateY(-90deg); }
+      .front-right  { transform: translateX( 75px) rotateY( 90deg); }
+      .front-top    { transform: translateY(-75px) rotateX( 90deg); }
+      .front-bottom { transform: translateY( 75px) rotateX(-90deg); }
+
+    </style>
+
+    <style>
+
+      h1 { color: forestgreen; }
+      ul li:nth-of-type(1) { background: dodgerblue; }
+      ul li:nth-of-type(2) { background: red; }
+      ul li:nth-of-type(3) { background: limegreen; }
+
+      .roundbox {
+        border: 1px solid orangered;
+        border-radius: 10px;
+      }
+
+    </style>
+
   </head>
   <body>
     <h1>Überschrift</h1>
-    <p>
+    <p class="roundbox">
       Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz
       Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz
       Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz Absatz
@@ -46,5 +140,31 @@
       Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat Zitat
     </blockquote>
     <!--    Hier steht ein Kommentar   -->
+    <div class="cube-view">
+      <div class="cube-container">
+        <cube>
+          <face class="front">
+            front
+            <joint class="front-left">
+              <face class=" left">
+                left
+                <joint class="left-back">
+                  <face class="back">back</face>
+                </joint>
+              </face>
+            </joint>
+            <joint class="front-right">
+              <face class="right">right</face>
+            </joint>
+            <joint class="front-top">
+              <face class="top">top</face>
+            </joint>
+            <joint class="front-bottom">
+              <face class="bottom">bottom</face>
+            </joint>
+          </face>
+        </cube>
+      </div>
+    </div>
   </body>
 </html>
